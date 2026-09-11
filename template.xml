@@ -3,316 +3,408 @@
   <head>
     <meta charset="UTF-8"/>
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
-    <title><data:blog.title/></title>
-    <description><data:blog.metaDescription/></description>
+    <title><data:blog.pageTitle/></title>
+    <meta expr:content="data:blog.metaDescription" name="description"/>
     
-    <!-- Stylesheets -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;family=Playfair+Display:wght@700&amp;display=swap" rel="stylesheet"/>
+    <!-- Preconnect to external resources -->
+    <link href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://cdnjs.cloudflare.com" rel="preconnect"/>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&amp;family=Montserrat:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    
+    <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
     
     <style>
-      :root {
-        --primary-color: #2c3e50;
-        --secondary-color: #e74c3c;
-        --text-dark: #333;
-        --text-light: #666;
-        --bg-light: #f8f9fa;
-        --border-color: #e0e0e0;
-        --transition: all 0.3s ease;
-      }
-
+      /* ==========================================
+         RESET & BASE STYLES
+         ========================================== */
       * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
       }
 
+      html {
+        font-size: 16px;
+        scroll-behavior: smooth;
+      }
+
       body {
-        font-family: 'Poppins', sans-serif;
-        color: var(--text-dark);
-        background-color: #ffffff;
-        line-height: 1.6;
+        font-family: 'Merriweather', serif;
+        font-size: 16px;
+        line-height: 1.8;
+        color: #2c2c2c;
+        background-color: #fff;
+        overflow-x: hidden;
+      }
+
+      /* ==========================================
+         TYPOGRAPHY
+         ========================================== */
+      h1, h2, h3, h4, h5, h6 {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 700;
+        line-height: 1.4;
+        margin-bottom: 0.5rem;
+      }
+
+      h1 { font-size: 2.5rem; }
+      h2 { font-size: 2rem; }
+      h3 { font-size: 1.75rem; }
+      h4 { font-size: 1.5rem; }
+      h5 { font-size: 1.25rem; }
+      h6 { font-size: 1rem; }
+
+      p {
+        margin-bottom: 1rem;
       }
 
       a {
-        color: var(--secondary-color);
+        color: #d73d32;
         text-decoration: none;
-        transition: var(--transition);
+        transition: color 0.3s ease;
       }
 
       a:hover {
-        color: var(--primary-color);
+        color: #b8311f;
       }
 
-      /* HEADER STYLES */
-      .header-wrapper {
-        background: linear-gradient(135deg, var(--primary-color) 0%, #34495e 100%);
-        color: white;
-        padding: 20px 0;
+      img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      /* ==========================================
+         HEADER STYLES
+         ========================================== */
+      #header-wrapper {
+        background: #ffffff;
+        border-bottom: 1px solid #eaeaea;
         position: sticky;
         top: 0;
-        z-index: 100;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        z-index: 1000;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
       }
 
       .header-inner {
-        max-width: 1200px;
+        max-width: 1100px;
         margin: 0 auto;
-        padding: 0 20px;
+        padding: 15px 20px;
         display: flex;
         justify-content: space-between;
         align-items: center;
       }
 
-      .logo {
-        font-size: 28px;
-        font-weight: 700;
-        font-family: 'Playfair Display', serif;
+      .header-logo {
         display: flex;
         align-items: center;
         gap: 10px;
       }
 
-      .logo:hover {
-        color: var(--secondary-color);
+      .header-logo a {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 24px;
+        font-weight: 700;
+        color: #2c2c2c;
+        letter-spacing: -0.5px;
       }
 
-      .nav-menu {
+      .header-logo a:hover {
+        color: #d73d32;
+      }
+
+      /* Navigation Menu */
+      .navbar {
         display: flex;
-        list-style: none;
-        gap: 30px;
         align-items: center;
+        gap: 30px;
       }
 
-      .nav-menu a {
-        color: white;
-        font-weight: 500;
+      .navbar-menu {
+        list-style: none;
+        display: flex;
+        gap: 25px;
+      }
+
+      .navbar-menu a {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #2c2c2c;
         position: relative;
-        padding-bottom: 5px;
       }
 
-      .nav-menu a:after {
+      .navbar-menu a:after {
         content: '';
         position: absolute;
+        bottom: -5px;
+        left: 0;
         width: 0;
         height: 2px;
-        bottom: 0;
-        left: 0;
-        background-color: var(--secondary-color);
+        background-color: #d73d32;
         transition: width 0.3s ease;
       }
 
-      .nav-menu a:hover:after {
+      .navbar-menu a:hover:after {
         width: 100%;
       }
 
-      .social-icons {
+      .header-search {
         display: flex;
-        gap: 15px;
+        align-items: center;
       }
 
-      .social-icons a {
-        color: white;
+      .search-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
         font-size: 18px;
-        transition: var(--transition);
+        color: #2c2c2c;
       }
 
-      .social-icons a:hover {
-        color: var(--secondary-color);
-        transform: translateY(-3px);
-      }
-
-      /* FEATURED SLIDER */
+      /* ==========================================
+         FEATURED AREA
+         ========================================== */
       .featured-section {
-        background: var(--bg-light);
+        background: linear-gradient(135deg, #f5f5f5 0%, #fafafa 100%);
         padding: 40px 0;
-        margin-bottom: 40px;
+        margin-bottom: 50px;
       }
 
       .featured-container {
-        max-width: 1200px;
+        max-width: 1100px;
         margin: 0 auto;
         padding: 0 20px;
       }
 
-      .featured-slider {
-        position: relative;
-        border-radius: 8px;
-        overflow: hidden;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      }
-
-      .featured-item {
-        position: relative;
-        height: 400px;
-        background-size: cover;
-        background-position: center;
-        display: none;
-      }
-
-      .featured-item.active {
-        display: block;
-        animation: fadeIn 0.6s ease;
-      }
-
-      @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-      }
-
-      .featured-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.6) 100%);
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        padding: 30px;
-        color: white;
-      }
-
-      .featured-title {
-        font-size: 32px;
+      .featured-header {
+        font-size: 18px;
         font-weight: 700;
-        margin-bottom: 10px;
-        font-family: 'Playfair Display', serif;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 30px;
+        color: #2c2c2c;
+        font-family: 'Montserrat', sans-serif;
       }
 
-      .featured-meta {
-        font-size: 14px;
-        color: #ddd;
-        display: flex;
-        gap: 15px;
-        margin-bottom: 15px;
-      }
-
-      /* MAIN CONTENT */
-      .main-wrapper {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 20px;
+      .featured-posts {
         display: grid;
-        grid-template-columns: 1fr 300px;
-        gap: 40px;
-        margin-bottom: 60px;
-      }
-
-      .posts-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
         gap: 30px;
       }
 
-      .post-card {
+      .featured-post {
         background: white;
-        border-radius: 8px;
+        border-radius: 3px;
         overflow: hidden;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        transition: var(--transition);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
       }
 
-      .post-card:hover {
-        box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      .featured-post:hover {
         transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
       }
 
-      .post-image {
+      .featured-post-image {
+        position: relative;
         width: 100%;
-        height: 220px;
-        object-fit: cover;
-        display: block;
+        height: 200px;
+        overflow: hidden;
       }
 
-      .post-content {
+      .featured-post-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+      }
+
+      .featured-post:hover .featured-post-image img {
+        transform: scale(1.05);
+      }
+
+      .featured-post-label {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        background: #d73d32;
+        color: white;
+        padding: 5px 12px;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        border-radius: 2px;
+      }
+
+      .featured-post-content {
         padding: 20px;
       }
 
-      .post-category {
-        display: inline-block;
-        background-color: var(--secondary-color);
-        color: white;
-        font-size: 12px;
-        padding: 6px 12px;
-        border-radius: 20px;
+      .featured-post-title {
+        font-size: 16px;
+        font-weight: 700;
         margin-bottom: 12px;
-        font-weight: 600;
+        line-height: 1.5;
+      }
+
+      .featured-post-title a {
+        color: #2c2c2c;
+      }
+
+      .featured-post-title a:hover {
+        color: #d73d32;
+      }
+
+      .featured-post-meta {
+        font-size: 12px;
+        color: #999;
+        display: flex;
+        gap: 15px;
+      }
+
+      /* ==========================================
+         MAIN CONTAINER
+         ========================================== */
+      .container-wrapper {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: grid;
+        grid-template-columns: 1fr 320px;
+        gap: 50px;
+        margin-bottom: 80px;
+      }
+
+      /* ==========================================
+         BLOG POSTS SECTION
+         ========================================== */
+      .blog-posts {
+        display: grid;
+        gap: 50px;
+      }
+
+      .post-item {
+        padding-bottom: 50px;
+        border-bottom: 1px solid #eaeaea;
+      }
+
+      .post-item:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+      }
+
+      .post-image-wrapper {
+        margin-bottom: 25px;
+        overflow: hidden;
+        border-radius: 3px;
+      }
+
+      .post-image-wrapper img {
+        width: 100%;
+        height: auto;
+        display: block;
+        transition: transform 0.3s ease;
+      }
+
+      .post-item:hover .post-image-wrapper img {
+        transform: scale(1.03);
       }
 
       .post-title {
-        font-size: 20px;
-        font-weight: 700;
-        margin-bottom: 12px;
-        color: var(--text-dark);
-        font-family: 'Playfair Display', serif;
+        font-size: 28px;
         line-height: 1.4;
+        margin-bottom: 15px;
       }
 
       .post-title a {
-        color: var(--text-dark);
+        color: #2c2c2c;
       }
 
       .post-title a:hover {
-        color: var(--secondary-color);
-      }
-
-      .post-excerpt {
-        color: var(--text-light);
-        font-size: 14px;
-        margin-bottom: 15px;
-        line-height: 1.6;
+        color: #d73d32;
       }
 
       .post-meta {
         display: flex;
-        gap: 15px;
+        gap: 25px;
         font-size: 13px;
-        color: var(--text-light);
-        padding-top: 15px;
-        border-top: 1px solid var(--border-color);
+        color: #999;
+        margin-bottom: 20px;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 500;
       }
 
-      .post-meta span {
+      .post-meta a {
+        color: #999;
+      }
+
+      .post-meta a:hover {
+        color: #d73d32;
+      }
+
+      .post-meta-item {
         display: flex;
         align-items: center;
-        gap: 5px;
+        gap: 8px;
       }
 
-      .read-more {
+      .post-content-preview {
+        font-size: 15px;
+        line-height: 1.8;
+        color: #555;
+        margin-bottom: 20px;
+      }
+
+      .read-more-link {
         display: inline-block;
-        color: var(--secondary-color);
-        font-weight: 600;
-        font-size: 14px;
-        margin-top: 12px;
-        transition: var(--transition);
+        font-family: 'Montserrat', sans-serif;
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        padding: 10px 20px;
+        border: 2px solid #d73d32;
+        color: #d73d32;
+        transition: all 0.3s ease;
+        border-radius: 2px;
       }
 
-      .read-more:hover {
-        transform: translateX(5px);
+      .read-more-link:hover {
+        background: #d73d32;
+        color: white;
       }
 
-      /* SIDEBAR */
+      /* ==========================================
+         SIDEBAR STYLES
+         ========================================== */
       .sidebar {
         display: flex;
         flex-direction: column;
-        gap: 30px;
+        gap: 40px;
       }
 
       .widget {
         background: white;
-        padding: 25px;
-        border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        border: 1px solid #eaeaea;
+        border-radius: 3px;
+        padding: 30px 25px;
       }
 
       .widget-title {
-        font-size: 18px;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 14px;
         font-weight: 700;
-        margin-bottom: 20px;
-        color: var(--text-dark);
-        font-family: 'Playfair Display', serif;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 25px;
+        color: #2c2c2c;
         position: relative;
         padding-bottom: 15px;
       }
@@ -322,123 +414,125 @@
         position: absolute;
         bottom: 0;
         left: 0;
-        width: 40px;
+        width: 30px;
         height: 3px;
-        background-color: var(--secondary-color);
-        border-radius: 2px;
+        background-color: #d73d32;
       }
 
-      .search-form {
+      /* Search Widget */
+      .search-widget-form {
         display: flex;
-        gap: 8px;
+        gap: 0;
       }
 
-      .search-form input {
+      .search-widget-form input {
         flex: 1;
         padding: 10px 15px;
-        border: 1px solid var(--border-color);
-        border-radius: 5px;
-        font-size: 14px;
-        transition: var(--transition);
+        border: 1px solid #ddd;
+        font-size: 13px;
+        font-family: 'Merriweather', serif;
+        background: #f9f9f9;
       }
 
-      .search-form input:focus {
+      .search-widget-form input:focus {
         outline: none;
-        border-color: var(--secondary-color);
-        box-shadow: 0 0 5px rgba(231, 76, 60, 0.1);
+        background: white;
+        border-color: #d73d32;
       }
 
-      .search-form button {
+      .search-widget-form button {
         padding: 10px 20px;
-        background-color: var(--secondary-color);
+        background: #d73d32;
         color: white;
         border: none;
-        border-radius: 5px;
         cursor: pointer;
-        font-weight: 600;
-        transition: var(--transition);
+        font-size: 13px;
+        transition: background 0.3s ease;
       }
 
-      .search-form button:hover {
-        background-color: var(--primary-color);
+      .search-widget-form button:hover {
+        background: #b8311f;
       }
 
-      .popular-posts {
+      /* Popular Posts Widget */
+      .popular-posts-list {
         list-style: none;
       }
 
-      .popular-posts li {
+      .popular-posts-list li {
         padding: 12px 0;
-        border-bottom: 1px solid var(--border-color);
+        border-bottom: 1px solid #f0f0f0;
       }
 
-      .popular-posts li:last-child {
+      .popular-posts-list li:last-child {
         border-bottom: none;
       }
 
-      .popular-posts a {
-        color: var(--text-dark);
-        font-size: 14px;
-        font-weight: 500;
-        line-height: 1.5;
+      .popular-posts-list a {
+        font-size: 13px;
+        line-height: 1.6;
+        color: #2c2c2c;
       }
 
-      .popular-posts a:hover {
-        color: var(--secondary-color);
+      .popular-posts-list a:hover {
+        color: #d73d32;
       }
 
-      .categories-list {
+      /* Labels/Categories Widget */
+      .labels-list {
         list-style: none;
-      }
-
-      .categories-list li {
-        padding: 10px 0;
-      }
-
-      .categories-list a {
-        color: var(--text-dark);
-        font-size: 14px;
-        font-weight: 500;
         display: flex;
-        justify-content: space-between;
-        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
       }
 
-      .categories-list a:hover {
-        color: var(--secondary-color);
+      .labels-list li {
+        display: inline-block;
       }
 
-      .category-count {
-        background-color: var(--bg-light);
-        padding: 3px 10px;
-        border-radius: 3px;
+      .labels-list a {
+        display: inline-block;
+        padding: 6px 12px;
+        background: #f5f5f5;
+        color: #2c2c2c;
         font-size: 12px;
-        color: var(--text-light);
+        border-radius: 2px;
+        transition: all 0.3s ease;
       }
 
-      /* FOOTER */
-      .footer-wrapper {
-        background: linear-gradient(135deg, var(--primary-color) 0%, #34495e 100%);
+      .labels-list a:hover {
+        background: #d73d32;
         color: white;
-        padding: 50px 0 20px;
-        margin-top: 60px;
+      }
+
+      /* ==========================================
+         FOOTER STYLES
+         ========================================== */
+      footer {
+        background: #2c2c2c;
+        color: #ccc;
+        padding: 50px 0 30px;
+        margin-top: 80px;
       }
 
       .footer-container {
-        max-width: 1200px;
+        max-width: 1100px;
         margin: 0 auto;
         padding: 0 20px;
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         gap: 40px;
-        margin-bottom: 30px;
+        margin-bottom: 40px;
       }
 
       .footer-widget h3 {
-        font-size: 16px;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 13px;
         font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
         margin-bottom: 20px;
-        font-family: 'Playfair Display', serif;
+        color: #fff;
       }
 
       .footer-widget ul {
@@ -446,215 +540,310 @@
       }
 
       .footer-widget ul li {
-        margin-bottom: 12px;
+        margin-bottom: 10px;
       }
 
       .footer-widget ul li a {
-        color: #ddd;
-        font-size: 14px;
-        transition: var(--transition);
+        color: #ccc;
+        font-size: 13px;
+        transition: color 0.3s ease;
       }
 
       .footer-widget ul li a:hover {
-        color: var(--secondary-color);
-        padding-left: 8px;
-      }
-
-      .footer-bottom {
-        border-top: 1px solid rgba(255,255,255,0.1);
-        padding-top: 20px;
-        text-align: center;
-        font-size: 14px;
-        color: #aaa;
+        color: #d73d32;
       }
 
       .footer-social {
         display: flex;
         gap: 15px;
-        margin-top: 15px;
+        margin-top: 20px;
       }
 
       .footer-social a {
         width: 40px;
         height: 40px;
-        background-color: rgba(255,255,255,0.1);
-        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
         display: flex;
         align-items: center;
         justify-content: center;
-        color: white;
+        border-radius: 50%;
         font-size: 16px;
-        transition: var(--transition);
+        transition: all 0.3s ease;
       }
 
       .footer-social a:hover {
-        background-color: var(--secondary-color);
+        background: #d73d32;
       }
 
-      /* RESPONSIVE */
+      .footer-bottom {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 20px;
+        text-align: center;
+        font-size: 12px;
+        color: #999;
+      }
+
+      /* ==========================================
+         RESPONSIVE DESIGN
+         ========================================== */
       @media (max-width: 768px) {
-        .main-wrapper {
-          grid-template-columns: 1fr;
-        }
-
-        .posts-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .nav-menu {
-          gap: 15px;
-        }
-
-        .featured-title {
-          font-size: 24px;
-        }
+        h1 { font-size: 1.8rem; }
+        h2 { font-size: 1.5rem; }
+        h3 { font-size: 1.3rem; }
 
         .header-inner {
           flex-direction: column;
           gap: 15px;
         }
+
+        .navbar-menu {
+          flex-direction: column;
+          gap: 10px;
+          width: 100%;
+        }
+
+        .container-wrapper {
+          grid-template-columns: 1fr;
+          gap: 30px;
+        }
+
+        .post-title {
+          font-size: 20px;
+        }
+
+        .featured-posts {
+          grid-template-columns: 1fr;
+        }
+
+        .footer-container {
+          grid-template-columns: 1fr;
+          gap: 30px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        body {
+          font-size: 14px;
+        }
+
+        h1 { font-size: 1.5rem; }
+        h2 { font-size: 1.2rem; }
+        h3 { font-size: 1rem; }
+
+        .header-inner {
+          padding: 10px 15px;
+        }
+
+        .header-logo a {
+          font-size: 18px;
+        }
+
+        .navbar {
+          width: 100%;
+        }
+
+        .navbar-menu {
+          gap: 15px;
+        }
+
+        .post-title {
+          font-size: 16px;
+        }
+
+        .post-meta {
+          font-size: 11px;
+          gap: 10px;
+        }
+
+        .featured-post-title {
+          font-size: 14px;
+        }
       }
     </style>
 
     <b:skin><![CDATA[
-      /* Blogger-specific overrides */
+      /* Blogger-specific CSS goes here */
     ]]></b:skin>
   </head>
 
   <body>
     <!-- HEADER -->
-    <header class="header-wrapper">
+    <header id="header-wrapper">
       <div class="header-inner">
-        <div class="logo">
-          <i class="fas fa-feather"></i>
-          <data:blog.title/>
+        <div class="header-logo">
+          <a href="/"><data:blog.title/></a>
         </div>
-        <nav>
-          <ul class="nav-menu">
+        <nav class="navbar">
+          <ul class="navbar-menu">
             <li><a href="/">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="/search/label/Technology">Technology</a></li>
+            <li><a href="/search/label/Lifestyle">Lifestyle</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
           </ul>
+          <div class="header-search">
+            <button class="search-btn"><i class="fas fa-search"></i></button>
+          </div>
         </nav>
-        <div class="social-icons">
-          <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
-          <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
-          <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
-        </div>
       </div>
     </header>
 
     <!-- FEATURED SECTION -->
     <section class="featured-section">
       <div class="featured-container">
-        <div class="featured-slider">
+        <div class="featured-header">Featured Articles</div>
+        <div class="featured-posts">
           <b:loop values="data:posts" var="post" index="index">
-            <b:if cond="data:index == 0">
-              <div class="featured-item active" style="background-image: url('&quot;' + data:post.featuredImage + '&quot;');">
-                <div class="featured-overlay">
-                  <div class="featured-meta">
-                    <span><i class="far fa-calendar"></i> <data:post.date.short/></span>
-                    <span><i class="far fa-user"></i> <data:post.author.name/></span>
-                  </div>
-                  <h2 class="featured-title"><data:post.title/></h2>
+            <b:if cond="data:index &lt; 3">
+              <article class="featured-post">
+                <div class="featured-post-image">
+                  <b:if cond="data:post.featuredImage">
+                    <img alt="&quot;' + data:post.title + '&quot;" src="&quot;' + data:post.featuredImage + '&quot;"/>
+                  <b:else/>
+                    <img alt="Default" src="https://via.placeholder.com/400x300?text=No+Image"/>
+                  </b:if>
+                  <b:if cond="data:post.labels">
+                    <span class="featured-post-label"><data:post.labels[0]/></span>
+                  </b:if>
                 </div>
-              </div>
+                <div class="featured-post-content">
+                  <h3 class="featured-post-title"><a href="&quot;' + data:post.url + '&quot;"><data:post.title/></a></h3>
+                  <div class="featured-post-meta">
+                    <span><data:post.date.short/></span>
+                    <span><data:post.author.name/></span>
+                  </div>
+                </div>
+              </article>
             </b:if>
           </b:loop>
         </div>
       </div>
     </section>
 
-    <!-- MAIN CONTENT -->
-    <div class="main-wrapper">
-      <main>
-        <div class="posts-grid">
-          <b:loop values="data:posts" var="post">
-            <article class="post-card">
-              <img class="post-image" src="&quot;' + data:post.featuredImage + '&quot;" alt="&quot;' + data:post.title + '&quot;"/>
-              <div class="post-content">
-                <span class="post-category"><data:post.labels.first/></span>
-                <h3 class="post-title">
-                  <a href="&quot;' + data:post.url + '&quot;"><data:post.title/></a>
-                </h3>
-                <p class="post-excerpt"><data:post.snippet/></p>
-                <div class="post-meta">
-                  <span><i class="far fa-calendar"></i> <data:post.date.short/></span>
-                  <span><i class="far fa-user"></i> <data:post.author.name/></span>
-                  <span><i class="far fa-comments"></i> <data:post.commentCount/></span>
-                </div>
-                <a href="&quot;' + data:post.url + '&quot;" class="read-more">Read More →</a>
+    <!-- MAIN CONTAINER -->
+    <div class="container-wrapper">
+      <!-- BLOG POSTS -->
+      <main class="blog-posts">
+        <b:loop values="data:posts" var="post">
+          <article class="post-item">
+            <b:if cond="data:post.featuredImage">
+              <div class="post-image-wrapper">
+                <img alt="&quot;' + data:post.title + '&quot;" src="&quot;' + data:post.featuredImage + '&quot;"/>
               </div>
-            </article>
-          </b:loop>
-        </div>
+            </b:if>
+
+            <h2 class="post-title"><a href="&quot;' + data:post.url + '&quot;"><data:post.title/></a></h2>
+
+            <div class="post-meta">
+              <div class="post-meta-item">
+                <i class="far fa-calendar"></i>
+                <span><data:post.date.short/></span>
+              </div>
+              <div class="post-meta-item">
+                <i class="far fa-user"></i>
+                <span><data:post.author.name/></span>
+              </div>
+              <b:if cond="data:post.labels">
+                <div class="post-meta-item">
+                  <i class="far fa-folder"></i>
+                  <b:loop values="data:post.labels" var="label" index="i">
+                    <b:if cond="data:i == 0">
+                      <a href="&quot;/search/label/' + data:label + '&quot;"><data:label/></a>
+                    </b:if>
+                  </b:loop>
+                </div>
+              </b:if>
+              <div class="post-meta-item">
+                <i class="far fa-comments"></i>
+                <span><data:post.commentCount/> Comments</span>
+              </div>
+            </div>
+
+            <div class="post-content-preview">
+              <data:post.snippet/>
+            </div>
+
+            <a href="&quot;' + data:post.url + '&quot;" class="read-more-link">Read More</a>
+          </article>
+        </b:loop>
       </main>
 
       <!-- SIDEBAR -->
       <aside class="sidebar">
         <!-- Search Widget -->
         <div class="widget">
-          <h3 class="widget-title">Search Blog</h3>
-          <form class="search-form" method="get" action="/search">
-            <input type="text" name="q" placeholder="Search..." required="required"/>
+          <h2 class="widget-title">Search</h2>
+          <form action="/search" class="search-widget-form" method="get">
+            <input placeholder="Search blog..." type="text" name="q" required="required"/>
             <button type="submit"><i class="fas fa-search"></i></button>
           </form>
         </div>
 
         <!-- Popular Posts -->
         <div class="widget">
-          <h3 class="widget-title">Popular Posts</h3>
-          <ul class="popular-posts">
-            <li><a href="#">5 Tips for Better Blogging</a></li>
-            <li><a href="#">How to Optimize Your Content</a></li>
-            <li><a href="#">SEO Best Practices Guide</a></li>
-            <li><a href="#">Building an Audience</a></li>
+          <h2 class="widget-title">Popular Posts</h2>
+          <ul class="popular-posts-list">
+            <li><a href="#">10 Tips for Better Blog Writing</a></li>
+            <li><a href="#">How to Grow Your Blog Audience</a></li>
+            <li><a href="#">SEO Optimization Guide</a></li>
+            <li><a href="#">Content Creation Best Practices</a></li>
+            <li><a href="#">Social Media Marketing Strategies</a></li>
           </ul>
         </div>
 
-        <!-- Categories -->
+        <!-- Categories/Labels -->
         <div class="widget">
-          <h3 class="widget-title">Categories</h3>
-          <ul class="categories-list">
-            <li><a href="#">Technology <span class="category-count">12</span></a></li>
-            <li><a href="#">Lifestyle <span class="category-count">8</span></a></li>
-            <li><a href="#">Travel <span class="category-count">15</span></a></li>
-            <li><a href="#">Food <span class="category-count">6</span></a></li>
+          <h2 class="widget-title">Categories</h2>
+          <ul class="labels-list">
+            <li><a href="#">Technology</a></li>
+            <li><a href="#">Lifestyle</a></li>
+            <li><a href="#">Business</a></li>
+            <li><a href="#">Travel</a></li>
+            <li><a href="#">Food</a></li>
+            <li><a href="#">Fashion</a></li>
           </ul>
         </div>
 
         <!-- About Widget -->
         <div class="widget">
-          <h3 class="widget-title">About Me</h3>
-          <p style="font-size: 14px; line-height: 1.6; color: var(--text-light);">
-            Hi! I'm a passionate blogger sharing my thoughts and experiences. Welcome to my blog!
+          <h2 class="widget-title">About Me</h2>
+          <p style="font-size: 13px; line-height: 1.8; color: #555; margin-bottom: 15px;">
+            Welcome to my blog! Here I share my thoughts, experiences, and insights about various topics that interest me. Feel free to explore and enjoy!
           </p>
           <div class="footer-social">
-            <a href="#"><i class="fab fa-facebook"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
           </div>
         </div>
       </aside>
     </div>
 
     <!-- FOOTER -->
-    <footer class="footer-wrapper">
+    <footer>
       <div class="footer-container">
         <div class="footer-widget">
           <h3>About This Blog</h3>
-          <p style="font-size: 14px; line-height: 1.6; color: #ddd; margin-bottom: 15px;">
-            A modern, responsive blog template built with clean design principles and best practices.
+          <p style="font-size: 13px; line-height: 1.8; color: #ccc;">
+            A modern, clean, and responsive blogger template inspired by popular designs. Perfect for bloggers and content creators.
           </p>
+          <div class="footer-social">
+            <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+          </div>
         </div>
 
         <div class="footer-widget">
           <h3>Quick Links</h3>
           <ul>
             <li><a href="/">Home</a></li>
-            <li><a href="#">Archive</a></li>
             <li><a href="#">About</a></li>
             <li><a href="#">Contact</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Disclaimer</a></li>
           </ul>
         </div>
 
@@ -663,24 +852,25 @@
           <ul>
             <li><a href="#">Technology</a></li>
             <li><a href="#">Lifestyle</a></li>
+            <li><a href="#">Business</a></li>
             <li><a href="#">Travel</a></li>
             <li><a href="#">Food</a></li>
           </ul>
         </div>
 
         <div class="footer-widget">
-          <h3>Follow Us</h3>
-          <div class="footer-social">
-            <a href="#"><i class="fab fa-facebook"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-youtube"></i></a>
-          </div>
+          <h3>Recent Posts</h3>
+          <ul>
+            <li><a href="#">Latest Blog Post Title</a></li>
+            <li><a href="#">Another Amazing Article</a></li>
+            <li><a href="#">Featured Content Here</a></li>
+            <li><a href="#">Popular Post Example</a></li>
+          </ul>
         </div>
       </div>
 
       <div class="footer-bottom">
-        <p>&copy; 2024 <data:blog.title/>. All rights reserved. | Designed with ❤️ by Oxygen Blogger</p>
+        <p>&copy; 2024 <data:blog.title/>. All rights reserved. | Powered by Blogger | Designed by Oxygen Blogger Template</p>
       </div>
     </footer>
 
